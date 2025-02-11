@@ -14,11 +14,13 @@ get the value of the players choice
 4. after I play 1 round, I want to play another round with new humanchoice and computer choice
 I have to get a new humanchoice and computerchoice and store them for a new round to be played
 */
+
+
 let humanScore = 0;
 let computerScore = 0;
-
+let computerChoice;
 function getComputerChoice () {
-    let computerChoice = 'rock';
+   
      let number = Math.random();
      number *= 100;
 if (number <= 33) {
@@ -28,82 +30,46 @@ if (number <= 33) {
 } else {
     computerChoice = 'scissors';
 }
-console.log('Computer chose ' + computerChoice);
+
 return computerChoice;
 }
 
-  
-function getHumanChoice (){
-    let humanChoice = prompt ('Rock, Paper, or Scissors?');
-    if (humanChoice.toLowerCase() === 'rock') {
-        humanChoice = 'rock';
-    } else if (humanChoice.toLowerCase() === 'paper') {
-        humanChoice = 'paper';
-    } else if (humanChoice.toLowerCase() === 'scissors') {
-        humanChoice = 'scissors';
-    } else {
-        humanChoice = 'Illegal entry! Please enter Rock, Paper, or Scissors.';
-    }
-console.log('You chose ' + humanChoice)
-return humanChoice;
-}
+
 
 let roundCounter = 0;
 function playRound (humanSelection, computerSelection){
 if (humanSelection === 'rock' && computerSelection === 'scissors') {
-    console.log('You win! Rock beats scissors.')
+    moreContent.textContent = 'You win! Rock beats scissors.';
     humanScore++;
     roundCounter++;
-    console.log('Your score is' + ': ' + humanScore)
-    console.log('The computers score is' + ': ' + computerScore)
-    console.log('----------------------------')
     return humanScore;
 } else if (humanSelection === 'rock' && computerSelection === 'paper') {
-    console.log('You lose! Paper beats rock.')
+    moreContent.textContent = 'You lose! Paper beats rock.';
     computerScore++;
     roundCounter++;
-    console.log('Your score is' + ': ' + humanScore)
-    console.log('The computers score is' + ': ' + computerScore)
-    console.log('----------------------------')
     return computerScore
 } else if ( humanSelection === 'scissors' && computerSelection === 'rock') {
-    console.log('You lose! Rock beats scissors.')
+    moreContent.textContent = 'You lose! Rock beats scissors.';
     computerScore++;
     roundCounter++;
-    console.log('Your score is' + ': ' + humanScore)
-    console.log('The computers score is' + ': ' + computerScore)
-    console.log('----------------------------')
     return computerScore
 } else if (humanSelection === 'scissors' && computerSelection === 'paper') {
-    console.log('You win! Scissors beat paper.')
+    moreContent.textContent = 'You win! Scissors beat paper.';
     humanScore++;
     roundCounter++;
-    console.log('Your score is' + ': ' + humanScore)
-    console.log('The computers score is' + ': ' + computerScore)
-    console.log('----------------------------')
     return humanScore
 } else if (humanSelection === 'paper' && computerSelection === 'rock') {
-    console.log('You win! Paper beats rock.')
+    moreContent.textContent = 'You win! Paper beats rock.';
     humanScore++;
     roundCounter++;
-    console.log('Your score is' + ': ' + humanScore)
-    console.log('The computers score is' + ': ' + computerScore)
-    console.log('----------------------------')
     return humanScore
 } else if (humanSelection === 'paper' && computerSelection === 'scissors') {
-    console.log('You lose! Scissors beat paper.')
+    moreContent.textContent = 'You lose! Scissors beat paper.';
     computerScore++;
     roundCounter++;
-    console.log('Your score is' + ': ' + humanScore)
-    console.log('The computers score is' + ': ' + computerScore)
-    console.log('----------------------------')
     return computerScore
 } else {
-    console.log('You tied!')
-    console.log('Your score is' + ': ' + humanScore)
-    console.log('The computers score is' + ': ' + computerScore)
-    roundCounter++;
-    console.log('----------------------------')
+    moreContent.textContent = 'You tied!';
     return humanScore
 }
 }
@@ -114,38 +80,88 @@ if (humanSelection === 'rock' && computerSelection === 'scissors') {
 
 
 
- 
-let humChoice = getHumanChoice();
-let compChoice = getComputerChoice();
 
-function playGame(){
-    playRound(humChoice,compChoice);
-    humChoice = getHumanChoice();
-    compChoice = getComputerChoice();
-    playRound(humChoice,compChoice);
-    humChoice = getHumanChoice();
-    compChoice = getComputerChoice();
-    playRound(humChoice,compChoice);
-    humChoice = getHumanChoice();
-    compChoice = getComputerChoice();
-    playRound(humChoice,compChoice);
-    humChoice = getHumanChoice();
-    compChoice = getComputerChoice();
-    playRound(humChoice,compChoice);
+let playerChoice;
 
-    if (humanScore > computerScore) {
-        console.log('You won!')
-        console.log('Final scores- ' + 'You: ' + humanScore + ' Computer: ' + computerScore)
-    } else if (humanScore < computerScore) {
-        console.log('You lost!')
-        console.log('Final scores- ' + 'You: ' + humanScore + ' Computer: ' + computerScore)
-    } else {
-        console.log('You tied!')
-        console.log('Final scores- ' + 'You: ' + humanScore + ' Computer: ' + computerScore)
 
+
+
+
+container.addEventListener('click', (event) => {
+    let target = event.target;
+
+    switch(target.id) {
+        case 'rock':
+         
+            playerChoice = 'rock';
+            getComputerChoice();
+            playRound(playerChoice,computerChoice);
+            gameUI.textContent = 'You chose Rock! ' + 'Computer chose ' + computerChoice + '.';
+            playerScore.textContent = 'Your score is: ' + humanScore;
+            compScore.textContent = 'Computers score is: ' + computerScore;
+            if (humanScore >= 5) {
+                playerScore.textContent = 'You win!';
+            } else if (computerScore >= 5) {
+                compScore.textContent = 'Computer wins!';
+            }
+            break;
+        case 'paper':
+            playerChoice = 'paper';
+            playRound(playerChoice,getComputerChoice());
+            gameUI.textContent = 'You chose Paper! ' + 'Computer chose ' + computerChoice + '.';
+            playerScore.textContent = 'Your score is: ' + humanScore;
+            compScore.textContent = 'Computers score is: ' + computerScore;
+            if (humanScore >= 5) {
+                
+                playerScore.textContent = 'You win!';
+        
+            } else if (computerScore >= 5) {
+                compScore.textContent = 'Computer wins!';
+               
+            }
+            break;
+        case 'scissors':
+            playerChoice = 'scissors';
+            playRound(playerChoice,getComputerChoice());
+            gameUI.textContent = 'You chose Scissors! ' + 'Computer chose ' + computerChoice + '.';
+            playerScore.textContent = 'Your score is: ' + humanScore;
+            compScore.textContent = 'Computers score is: ' + computerScore;
+            if (humanScore >= 5) {
+                playerScore.textContent = 'You win!';
+            } else if (computerScore >= 5) {
+                compScore.textContent = 'Computer wins!';
+            }
+            break;
     }
+});
 
+if (humanScore === 5) {
+    console.log('winner');
+    playerScore.textContent = 'You win!';
+} else if (computerScore === 5) {
+    console.log('winner');
+    compScore.textContent = 'Computer wins!';
 }
 
-playGame();
+const score = document.querySelector("#score");
+const content = document.createElement("p");
+const moreContent = document.createElement('p');
+content.classList.add("content");
+
+const playerScore = document.createElement('p');
+const compScore = document.createElement('p');
+const gameUI = document.querySelector("#gameUI");
+const UI = document.createElement('p');
+gameUI.classList.add('gameUI');
+playerScore.textContent = 'Your score is: ' + humanScore;
+compScore.textContent = 'Computers score is: ' + computerScore;
+
+gameUI.appendChild(UI);
+score.appendChild(content);
+score.appendChild(moreContent);
+score.appendChild(playerScore);
+score.appendChild(compScore);
+
+
+
 
