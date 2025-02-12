@@ -135,13 +135,7 @@ container.addEventListener('click', (event) => {
     }
 });
 
-if (humanScore === 5) {
-    console.log('winner');
-    playerScore.textContent = 'You win!';
-} else if (computerScore === 5) {
-    console.log('winner');
-    compScore.textContent = 'Computer wins!';
-}
+
 
 const score = document.querySelector("#score");
 const content = document.createElement("p");
@@ -155,7 +149,7 @@ const UI = document.createElement('p');
 gameUI.classList.add('gameUI');
 playerScore.textContent = 'Your score is: ' + humanScore;
 compScore.textContent = 'Computers score is: ' + computerScore;
-
+moreContent.textContent = 'First to 5 wins!';
 gameUI.appendChild(UI);
 score.appendChild(content);
 score.appendChild(moreContent);
